@@ -1,0 +1,93 @@
+<!-- 
+<nav class="navbar navbar-expand-lg bg-body-tertiary nav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">E-COM</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+      </ul>
+      <form class="d-flex nav-search" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Seller</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Login</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          
+          <a class="nav-link active" aria-current="page" href="#">
+            <i class="fa fa-shopping-cart" style="font-size:36px"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+
+
+<!-- ---------------------------------------------------------- -->
+
+
+
+<nav class="nav"> 
+  <h1><a routerLink="">E-COM</a> </h1>
+  <div *ngIf="menuType!=='seller'" class="nav-search">
+    <input type="text"
+    #searchInput
+    (keyup)="searchProduct($event)" (blur)="hideSearch()" placeholder="Search Products" />
+    <button (click)="submitSearch(searchInput.value)" >Search</button>
+    <ul class="suggested-search" *ngIf="searchResult">
+      <li *ngFor="let item of searchResult">
+        <a (mousedown)="redirectToDetails(item.id)" >{{item.name}}</a>
+      </li>
+    </ul>
+  </div>
+ <div [ngSwitch]="menuType">
+  <ul *ngSwitchCase="'default'" >
+    <li><a routerLink="seller-auth">Seller</a></li>
+    <li><a routerLink="">Home</a></li>
+    <li><a routerLink="user-auth">Login/Sign-up</a></li>
+    <li><a href="#">Cart({{cartItems}})</a></li>
+  </ul>
+  <ul *ngSwitchCase="'user'" >
+    <li><a routerLink="seller-auth">Seller</a></li>
+    <li><a routerLink="">Home</a></li>
+    <li><a>{{userName | titlecase}}</a></li>
+    <li><a routerLink="my-orders" >My Orders</a></li>
+    <li><a (click)="userLogout()" >Logout</a></li>
+
+    <li><a [routerLink]="cartItems>0?'cart-page':null">Cart({{cartItems}})</a></li>
+  </ul>
+  <ul *ngSwitchCase="'seller'" >
+    <li><a routerLink="seller-add-product">Add Product</a></li>
+    <li><a routerLink="seller-home">List</a></li>
+    <li><a (click)="logout()">Logout</a></li>
+    <li><a href="#">{{sellerName | titlecase}}</a></li>
+  </ul>
+ </div>
+</nav>
